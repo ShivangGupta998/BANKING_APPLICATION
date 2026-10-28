@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBS Prime Banking | Secure Gateway Login</title>
+    <meta name="description" content="Secure Authorization Gateway for CBS Prime Enterprise Banking Portal">
+
+    <!-- Modern Typography & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Login Design System -->
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+    <!-- ====================================================================
+         Top Security Navigation
+         ==================================================================== -->
+    <header class="login-header">
+        <a href="login.html" class="brand-badge">
+            <div class="brand-logo-icon">
+                <i class="fa fa-university"></i>
+            </div>
+            <div>
+                <div class="brand-title">CBS PRIME <span class="tag-badge">ENTERPRISE</span></div>
+            </div>
+        </a>
+
+        <div class="header-security-badge">
+            <i class="fa fa-shield"></i>
+            <span>TLS 1.3 / 256-Bit SSL Encrypted</span>
+        </div>
+    </header>
+
+    <!-- ====================================================================
+         Center Login Form Console
+         ==================================================================== -->
+    <main class="login-main">
+        <div class="login-card">
+
+            <div class="login-card-header">
+                <div class="security-lock-glow">
+                    <i class="fa fa-lock"></i>
+                </div>
+                <h2>Secure Sign In</h2>
+                <p>Authorize access to CBS Prime Core Banking Ledger</p>
+            </div>
+
+            <!-- Portal Mode Switcher -->
+            <div class="login-mode-tabs">
+                <button type="button" class="mode-tab-btn active" data-mode="customer">
+                    <i class="fa fa-user"></i> Client Account
+                </button>
+                <button type="button" class="mode-tab-btn" data-mode="admin">
+                    <i class="fa fa-shield"></i> Executive / Admin
+                </button>
+            </div>
+
+            <!-- Error Banner -->
+            <div class="auth-error-banner" id="authErrorBanner">
+                <i class="fa fa-exclamation-triangle"></i>
+                <span id="errorMsgText">Invalid credentials provided.</span>
+            </div>
+
+            <!-- Form -->
+            <form id="loginForm" class="auth-form">
+                <div class="input-group">
+                    <div class="input-label-row">
+                        <label id="identifierLabel" for="loginIdentifier">Account # or Customer Name</label>
+                        <span style="font-size: 0.72rem; color: var(--accent-cyan);">Protected Node</span>
+                    </div>
+                    <div class="field-wrapper">
+                        <input type="text" id="loginIdentifier" class="form-input" placeholder="e.g. 1001002001 or Sarah" required autocomplete="username">
+                        <i class="fa fa-user-circle field-icon"></i>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <div class="input-label-row">
+                        <label for="loginPassword">Security PIN / Password</label>
+                        <a href="#" class="link-help" onclick="alert('Demo Passwords:\n• Customer: pass123 or 1234\n• Admin: admin123'); return false;">Forgot PIN?</a>
+                    </div>
+                    <div class="field-wrapper">
+                        <input type="password" id="loginPassword" class="form-input mono-font" placeholder="••••••••" required autocomplete="current-password">
+                        <i class="fa fa-key field-icon"></i>
+                        <button type="button" class="btn-toggle-eye" id="btnTogglePassword" title="Show/Hide Password">
+                            <i class="fa fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-aux-row">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="rememberMe" checked>
+                        <span>Trust &amp; remember this device</span>
+                    </label>
+                    <span style="color: var(--accent-emerald); font-size: 0.72rem;">
+                        <i class="fa fa-circle"></i> Gateway Online
+                    </span>
+                </div>
+
+                <button type="submit" id="btnSubmitLogin" class="btn-auth-submit">
+                    <i class="fa fa-lock"></i> Authorize &amp; Sign In <i class="fa fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <!-- Quick-Fill Demo Profiles -->
+            <div class="demo-accounts-strip">
+                <div class="demo-title">
+                    <span><i class="fa fa-bolt" style="color: var(--accent-amber);"></i> One-Click Demo Profiles</span>
+                    <span style="font-weight: 500; font-size: 0.68rem;">Tap to auto-fill</span>
+                </div>
+                <div class="demo-pills-row">
+                    <button type="button" class="demo-btn" data-id="1001002001" data-pwd="pass123" data-mode="customer">
+                        <i class="fa fa-star"></i>
+                        <div>
+                            <strong>Sarah Jenkins</strong>
+                            <span class="demo-acc-num mono-font">#1001002001</span>
+                        </div>
+                    </button>
+
+                    <button type="button" class="demo-btn" data-id="1001002002" data-pwd="pass123" data-mode="customer">
+                        <i class="fa fa-credit-card"></i>
+                        <div>
+                            <strong>Michael Chen</strong>
+                            <span class="demo-acc-num mono-font">#1001002002</span>
+                        </div>
+                    </button>
+
+                    <button type="button" class="demo-btn" data-id="1001002003" data-pwd="pass123" data-mode="customer">
+                        <i class="fa fa-briefcase"></i>
+                        <div>
+                            <strong>Elena Rodriguez</strong>
+                            <span class="demo-acc-num mono-font">#1001002003</span>
+                        </div>
+                    </button>
+
+                    <button type="button" class="demo-btn" data-id="admin" data-pwd="admin123" data-mode="admin">
+                        <i class="fa fa-shield" style="color: var(--accent-emerald);"></i>
+                        <div>
+                            <strong>System Admin</strong>
+                            <span class="demo-acc-num mono-font">ROLE_ADMIN</span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ====================================================================
+         Footer & Regulatory Badges
+         ==================================================================== -->
+    <footer class="login-footer">
+        <div>&copy; 2026 CBS Prime Global Financial Corporation. All Rights Reserved.</div>
+        <div class="compliance-badges">
+            <div class="comp-badge"><i class="fa fa-check-circle" style="color: var(--accent-emerald);"></i> PCI-DSS Level 1</div>
+            <div class="comp-badge"><i class="fa fa-check-circle" style="color: var(--accent-emerald);"></i> SOC 2 Type II</div>
+            <div class="comp-badge"><i class="fa fa-lock" style="color: var(--accent-cyan);"></i> Zero-Trust Architecture</div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/login.js"></script>
+</body>
+</html>

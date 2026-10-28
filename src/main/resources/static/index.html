@@ -1,311 +1,1082 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- basic -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- mobile metas -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport" content="initial-scale=1, maximum-scale=1">
-<!-- site metas -->
-<title>CBS</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content=""> 
-<!-- bootstrap css -->
-<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-<!-- style css -->
-<link rel="stylesheet" type="text/css" href="css/style.css">
-<!-- Responsive-->
-<link rel="stylesheet" href="css/responsive.css">
-<!-- fevicon -->
-<link rel="icon" href="images/fevicon.png" type="image/gif" />
-<!-- Scrollbar Custom CSS -->
-<link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
-<!-- Tweaks for older IEs-->
-<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
-<!-- owl stylesheets --> 
-<link rel="stylesheet" href="css/owl.carousel.min.css">
-<link rel="stylesheet" href="css/owl.theme.default.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBS Prime Banking | Enterprise Core Banking Portal</title>
+    <meta name="description" content="Complete Enterprise Core Banking Application - Transfers, Bills, Fixed Deposits, Loans, Card Controls, Beneficiaries & Analytics">
+
+    <!-- Modern Typography & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Enterprise Portal Design System -->
+    <link rel="stylesheet" href="css/enterprise-portal.css">
 </head>
 <body>
-  <!--header section start -->
-    <div class="header_section">
-      <div class="header_left">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <div class="logo"><a href="index.html"><img src="images/logo.png"></a></div>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="index.html">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="about.html">About</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="services.html">Services</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="team.html">Team</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="contact.html">Contact Us</a>
-              </li>
-            </ul>
-          </div>
+
+    <!-- ====================================================================
+         Top Navigation Bar
+         ==================================================================== -->
+    <header class="top-nav">
+        <div class="nav-container">
+            <div class="brand-section">
+                <div class="brand-icon-box">
+                    <i class="fa fa-university"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>CBS PRIME <span class="brand-badge">ENTERPRISE</span></h1>
+                    <span class="brand-tagline">Core Banking &amp; Financial Ledger</span>
+                </div>
+            </div>
+
+            <div class="nav-center-status">
+                <div class="status-node">
+                    <span class="pulse-dot"></span>
+                    <span>Core Engine: <strong>ACTIVE</strong></span>
+                </div>
+                <div class="status-node" style="color: var(--text-muted); font-size: 0.72rem;">
+                    <span>H2 Persistent Database | ACID Compliant</span>
+                </div>
+            </div>
+
+            <div class="nav-actions">
+                <button class="btn-header btn-ghost" onclick="loadInitialData()">
+                    <i class="fa fa-refresh"></i> Refresh
+                </button>
+                <button class="btn-header btn-primary" onclick="switchFeatureView('viewDashboard'); document.querySelector('[data-tab=\'tabNewAccount\']').click()">
+                    <i class="fa fa-plus-circle"></i> Open Account
+                </button>
+                <div id="userProfileNav" style="display: flex; align-items: center; gap: 0.65rem; padding-left: 0.5rem; border-left: 1px solid var(--border-subtle);">
+                    <div style="width: 34px; height: 34px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-primary), var(--accent-cyan)); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; color: #fff;" id="navUserAvatar">
+                        SJ
+                    </div>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 0.82rem; font-weight: 700; color: #fff;" id="navUserName">Sarah Jenkins</span>
+                        <span style="font-size: 0.68rem; color: var(--accent-emerald);" id="navUserRole">Verified Client</span>
+                    </div>
+                    <button class="btn-header btn-ghost" style="padding: 0.4rem 0.65rem; margin-left: 0.25rem;" onclick="logout()" title="Sign Out">
+                        <i class="fa fa-sign-out"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ====================================================================
+         Main Content Dashboard
+         ==================================================================== -->
+    <main class="app-container">
+
+        <!-- Executive KPI Row -->
+        <section class="kpi-grid">
+            <div class="kpi-card">
+                <div>
+                    <div class="kpi-label">Total Vault Reserves</div>
+                    <div class="kpi-value mono-font" id="kpiTotalBalance">$0.00</div>
+                    <div class="kpi-subtext"><i class="fa fa-arrow-up"></i> Live Real-Time Liquidity</div>
+                </div>
+                <div class="kpi-icon-box"><i class="fa fa-shield"></i></div>
+            </div>
+
+            <div class="kpi-card">
+                <div>
+                    <div class="kpi-label">Active Bank Accounts</div>
+                    <div class="kpi-value mono-font" id="kpiTotalAccounts">0</div>
+                    <div class="kpi-subtext"><i class="fa fa-check-circle"></i> Verified &amp; KYC Approved</div>
+                </div>
+                <div class="kpi-icon-box"><i class="fa fa-users"></i></div>
+            </div>
+
+            <div class="kpi-card">
+                <div>
+                    <div class="kpi-label">Ledger Transactions</div>
+                    <div class="kpi-value mono-font" id="kpiTotalTransactions">0</div>
+                    <div class="kpi-subtext"><i class="fa fa-database"></i> Immutable Audit Trail</div>
+                </div>
+                <div class="kpi-icon-box"><i class="fa fa-exchange"></i></div>
+            </div>
+
+            <div class="kpi-card">
+                <div>
+                    <div class="kpi-label">Security Protocol</div>
+                    <div class="kpi-value" style="font-size: 1.25rem; font-weight: 700; color: var(--accent-emerald);">PCI-DSS Level 1</div>
+                    <div class="kpi-subtext"><i class="fa fa-lock"></i> 256-Bit Financial Encryption</div>
+                </div>
+                <div class="kpi-icon-box" style="color: var(--accent-emerald);"><i class="fa fa-key"></i></div>
+            </div>
+        </section>
+
+        <!-- Customer / Account Switcher Bar -->
+        <section class="account-selector-bar">
+            <div class="selector-title-group">
+                <i class="fa fa-address-book-o" style="color: var(--accent-cyan);"></i>
+                <h2>Active Portfolio Account</h2>
+            </div>
+            <div class="account-pills-container" id="accountPillsContainer">
+                <!-- Populated dynamically by JS -->
+            </div>
+        </section>
+
+        <!-- ====================================================================
+             Full Feature Suite Navigation Tabs
+             ==================================================================== -->
+        <nav class="feature-nav-bar">
+            <button type="button" class="feature-nav-btn active" data-view="viewDashboard">
+                <i class="fa fa-dashboard"></i> Overview &amp; Transfers
+            </button>
+            <button type="button" class="feature-nav-btn" data-view="viewBills">
+                <i class="fa fa-bolt"></i> Pay Bills &amp; Utilities
+            </button>
+            <button type="button" class="feature-nav-btn" data-view="viewDeposits">
+                <i class="fa fa-line-chart"></i> Fixed Deposits
+            </button>
+            <button type="button" class="feature-nav-btn" data-view="viewLoans">
+                <i class="fa fa-money"></i> Loans &amp; EMI Calculator
+            </button>
+            <button type="button" class="feature-nav-btn" data-view="viewBeneficiaries">
+                <i class="fa fa-users"></i> Beneficiaries
+            </button>
+            <button type="button" class="feature-nav-btn" data-view="viewCards">
+                <i class="fa fa-credit-card"></i> Card Security
+            </button>
+            <button type="button" class="feature-nav-btn" data-view="viewAnalytics">
+                <i class="fa fa-pie-chart"></i> Spending Insights
+            </button>
+            <button type="button" class="feature-nav-btn" data-view="viewSupport">
+                <i class="fa fa-headphones"></i> Support &amp; AI Helpdesk
+            </button>
         </nav>
-        <div class="banner_main">
-          <h1 class="banner_taital">Customer Banking <br>Services</h1>
-          <p class="banner_text">We provide the World's best in class Banking Solutions and Services. </p>
-          <div class="btn_main">
-            <div class="more_bt"><a href="#">Read More </a></div>
-            <div class="contact_bt"><a href="#">Contact Us</a></div>
-          </div>
+
+        <!-- ====================================================================
+             FEATURE PANEL 1: Overview & Transfers (Original Core)
+             ==================================================================== -->
+        <div class="feature-view-panel active" id="viewDashboard">
+            
+            <section class="portal-main-grid">
+
+                <!-- Left: Virtual Card & Details -->
+                <div class="card-section-wrapper">
+                    
+                    <div class="virtual-debit-card" id="virtualCard">
+                        <div class="card-top-row">
+                            <div class="bank-card-brand">
+                                <i class="fa fa-university"></i> CBS PRIME
+                            </div>
+                            <div class="card-network-badge" id="cardTypeBadge">VISA INFINITE</div>
+                        </div>
+
+                        <div class="card-chip-row">
+                            <div class="emv-chip"></div>
+                            <div class="contactless-waves"><i class="fa fa-wifi"></i></div>
+                        </div>
+
+                        <div class="card-number-row">
+                            <div class="card-number-display mono-font" id="cardNumberText">•••• •••• •••• 0000</div>
+                            <button class="btn-card-toggle" id="cardToggleBtn" title="Toggle Card Visibility">
+                                <i class="fa fa-eye"></i> Show
+                            </button>
+                        </div>
+
+                        <div class="card-bottom-row">
+                            <div class="card-holder-group">
+                                <div class="meta-lbl">Cardholder Name</div>
+                                <div class="meta-val" id="cardHolderName">Loading...</div>
+                            </div>
+                            <div class="card-validity-group">
+                                <div class="meta-lbl">Expires</div>
+                                <div class="meta-val mono-font">10 / 29</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Action Button Strip -->
+                    <div class="card-quick-actions">
+                        <button class="btn-action-small" onclick="copyActiveAccountNumber()">
+                            <i class="fa fa-copy"></i> Copy Account #
+                        </button>
+                        <button class="btn-action-small" onclick="exportStatementCSV()">
+                            <i class="fa fa-download"></i> Export Statement
+                        </button>
+                    </div>
+
+                    <!-- Account Detail Specs Box -->
+                    <div class="account-detail-box">
+                        <div class="detail-row">
+                            <span class="detail-label">Account Holder</span>
+                            <span class="detail-value" id="detailAccountHolder">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Account Number</span>
+                            <span class="detail-value mono-font" id="detailAccountNumber">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Account Type</span>
+                            <span class="detail-value" id="detailAccountType">-</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Available Balance</span>
+                            <span class="detail-value mono-font" id="detailBalance" style="color: var(--accent-emerald); font-size: 1.1rem;">$0.00</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Routing Transit</span>
+                            <span class="detail-value mono-font">021000021 (FedWire)</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Status</span>
+                            <span class="detail-value" style="color: var(--accent-emerald); display: flex; align-items: center; gap: 0.35rem;">
+                                <i class="fa fa-check-circle"></i> Active &amp; Verified
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right: Operations Console (Transfers, Deposit, Withdraw, Open Account) -->
+                <div class="operations-hub">
+                    
+                    <div class="tabs-header">
+                        <button class="tab-btn active" data-tab="tabTransfer">
+                            <i class="fa fa-paper-plane"></i> Fund Transfer
+                        </button>
+                        <button class="tab-btn" data-tab="tabDeposit">
+                            <i class="fa fa-plus-circle"></i> Quick Deposit
+                        </button>
+                        <button class="tab-btn" data-tab="tabWithdraw">
+                            <i class="fa fa-minus-circle"></i> Withdraw Cash
+                        </button>
+                        <button class="tab-btn" data-tab="tabNewAccount">
+                            <i class="fa fa-user-plus"></i> Open New Account
+                        </button>
+                    </div>
+
+                    <!-- Tab 1: Fund Transfer -->
+                    <div class="tab-content-panel active" id="tabTransfer">
+                        <form id="transferForm" class="banking-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="transferFrom">Source Account (Debit)</label>
+                                    <select id="transferFrom" class="form-control" required></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="transferTo">Beneficiary Account (Credit)</label>
+                                    <select id="transferTo" class="form-control" required></select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transferAmount">
+                                    <span>Transfer Amount ($ USD)</span>
+                                    <span style="font-size: 0.72rem; color: var(--accent-cyan);">Fee: $0.00 (Instant Wire)</span>
+                                </label>
+                                <input type="number" id="transferAmount" class="form-control mono-font" placeholder="0.00" step="0.01" min="1" required>
+                                <div class="amount-presets">
+                                    <span class="preset-chip" data-val="100">+$100</span>
+                                    <span class="preset-chip" data-val="500">+$500</span>
+                                    <span class="preset-chip" data-val="1000">+$1,000</span>
+                                    <span class="preset-chip" data-val="5000">+$5,000</span>
+                                    <span class="preset-chip" data-val="MAX">Max Available</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="transferDesc">Payment Reference / Note</label>
+                                <input type="text" id="transferDesc" class="form-control" placeholder="e.g. Invoice settlement, Rent payment, Family support">
+                            </div>
+
+                            <button type="submit" id="btnSubmitTransfer" class="btn-submit-action">
+                                <i class="fa fa-lock"></i> Authorize &amp; Execute Transfer
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Tab 2: Quick Deposit -->
+                    <div class="tab-content-panel" id="tabDeposit">
+                        <form id="depositForm" class="banking-form">
+                            <div class="form-group">
+                                <label for="depositAccount">Target Account</label>
+                                <select id="depositAccount" class="form-control" required></select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="depositAmount">Deposit Amount ($ USD)</label>
+                                <input type="number" id="depositAmount" class="form-control mono-font" placeholder="0.00" step="0.01" min="1" required>
+                                <div class="amount-presets">
+                                    <span class="preset-chip" data-val="500">+$500</span>
+                                    <span class="preset-chip" data-val="1000">+$1,000</span>
+                                    <span class="preset-chip" data-val="5000">+$5,000</span>
+                                    <span class="preset-chip" data-val="10000">+$10,000</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="depositDesc">Channel / Description</label>
+                                <input type="text" id="depositDesc" class="form-control" placeholder="e.g. Payroll Direct Deposit, Wire Transfer, Cash Deposit">
+                            </div>
+
+                            <button type="submit" class="btn-submit-action" style="background: linear-gradient(135deg, var(--accent-emerald), #059669);">
+                                <i class="fa fa-arrow-down"></i> Confirm Deposit
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Tab 3: Cash Withdrawal -->
+                    <div class="tab-content-panel" id="tabWithdraw">
+                        <form id="withdrawForm" class="banking-form">
+                            <div class="form-group">
+                                <label for="withdrawAccount">Source Account</label>
+                                <select id="withdrawAccount" class="form-control" required></select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="withdrawAmount">Withdrawal Amount ($ USD)</label>
+                                <input type="number" id="withdrawAmount" class="form-control mono-font" placeholder="0.00" step="0.01" min="1" required>
+                                <div class="amount-presets">
+                                    <span class="preset-chip" data-val="100">+$100</span>
+                                    <span class="preset-chip" data-val="200">+$200</span>
+                                    <span class="preset-chip" data-val="500">+$500</span>
+                                    <span class="preset-chip" data-val="1000">+$1,000</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="withdrawDesc">Reason / Location</label>
+                                <input type="text" id="withdrawDesc" class="form-control" placeholder="e.g. Branch ATM Cash Withdrawal">
+                            </div>
+
+                            <button type="submit" class="btn-submit-action" style="background: linear-gradient(135deg, var(--accent-rose), #be123c);">
+                                <i class="fa fa-arrow-up"></i> Confirm Cash Withdrawal
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Tab 4: Open New Account -->
+                    <div class="tab-content-panel" id="tabNewAccount">
+                        <form id="newAccountForm" class="banking-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="newAccountName">Customer Full Legal Name</label>
+                                    <input type="text" id="newAccountName" class="form-control" placeholder="e.g. Alexander Vance" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="newAccountType">Account Type</label>
+                                    <select id="newAccountType" class="form-control">
+                                        <option value="Savings Account">Personal Savings</option>
+                                        <option value="Checking Account">Interest Checking</option>
+                                        <option value="Premium Wealth">Wealth Management Platinum</option>
+                                        <option value="Corporate Commercial">Corporate Business</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newAccountDeposit">Initial Opening Deposit ($ USD)</label>
+                                <input type="number" id="newAccountDeposit" class="form-control mono-font" placeholder="1000.00" value="1000" step="0.01" min="0">
+                            </div>
+
+                            <button type="submit" class="btn-submit-action">
+                                <i class="fa fa-check-circle"></i> Create Enterprise Account Instantly
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Transaction Audit Ledger & Statement Section -->
+            <section class="ledger-section">
+                <div class="ledger-header">
+                    <div class="ledger-title-group">
+                        <h3>Account Statement &amp; Audit Ledger</h3>
+                        <p>Real-time immutable transaction history for current selected account</p>
+                    </div>
+
+                    <div class="ledger-toolbar">
+                        <div class="search-input-wrapper">
+                            <i class="fa fa-search search-icon-pos"></i>
+                            <input type="text" id="transactionSearch" placeholder="Filter by ref ID, description...">
+                        </div>
+
+                        <div class="filter-pills">
+                            <span class="filter-pill active" data-filter="ALL">All</span>
+                            <span class="filter-pill" data-filter="TRANSFERS">Transfers</span>
+                            <span class="filter-pill" data-filter="DEPOSITS">Deposits</span>
+                            <span class="filter-pill" data-filter="WITHDRAWALS">Withdrawals</span>
+                        </div>
+
+                        <button class="btn-header btn-ghost" onclick="exportStatementCSV()">
+                            <i class="fa fa-file-excel-o"></i> CSV
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="banking-table">
+                        <thead>
+                            <tr>
+                                <th>Reference ID</th>
+                                <th>Timestamp</th>
+                                <th>Description</th>
+                                <th>Type</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                                <th>Balance After</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactionsTableBody">
+                            <!-- Populated by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
         </div>
-      </div>
-      <div class="header_right">
-        <img src="images/banner-img.png" class="banner_img">
-      </div>
+
+        <!-- ====================================================================
+             FEATURE PANEL 2: Pay Bills & Utilities
+             ==================================================================== -->
+        <div class="feature-view-panel" id="viewBills">
+            <div class="feature-grid-2">
+                
+                <!-- Settle Bill Form -->
+                <div class="feature-card">
+                    <div class="ledger-title-group">
+                        <h3><i class="fa fa-bolt" style="color: var(--accent-amber);"></i> Settle Utility or Service Bill</h3>
+                        <p>Direct debit from active account with zero surcharge</p>
+                    </div>
+
+                    <form id="billPayForm" class="banking-form">
+                        <div class="form-group">
+                            <label for="billCategory">Biller Category</label>
+                            <select id="billCategory" class="form-control" onchange="updateBillerNames()">
+                                <option value="Electricity">Electricity &amp; Power</option>
+                                <option value="Water">Municipal Water Utility</option>
+                                <option value="Broadband">Fiber Broadband &amp; Cable</option>
+                                <option value="Mobile">Mobile Postpaid Cellular</option>
+                                <option value="Credit Card">External Credit Card Bill</option>
+                            </select>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="billBillerName">Service Provider</label>
+                                <input type="text" id="billBillerName" class="form-control" value="Consolidated Edison Power" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="billConsumerNo">Consumer / Account ID</label>
+                                <input type="text" id="billConsumerNo" class="form-control mono-font" placeholder="e.g. NYC-994201" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="billAmount">Bill Amount ($ USD)</label>
+                            <input type="number" id="billAmount" class="form-control mono-font" placeholder="0.00" step="0.01" min="1" required>
+                        </div>
+
+                        <button type="submit" class="btn-submit-action" style="background: linear-gradient(135deg, var(--accent-amber), #d97706);">
+                            <i class="fa fa-check-circle"></i> Settle Bill Instantly
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Fast Biller Shortcuts -->
+                <div class="feature-card">
+                    <div class="ledger-title-group">
+                        <h3><i class="fa fa-star" style="color: var(--accent-cyan);"></i> Frequent Verified Billers</h3>
+                        <p>Click any partner biller to auto-fill payment form</p>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <div class="account-pill" onclick="quickFillBill('Electricity', 'Consolidated Edison Power', 'NYC-998842', 185.40)">
+                            <div class="pill-avatar"><i class="fa fa-lightbulb-o"></i></div>
+                            <div class="pill-info">
+                                <span class="pill-name">Con Edison Electricity</span>
+                                <span class="pill-balance mono-font">Due: $185.40 (Acc: NYC-998842)</span>
+                            </div>
+                        </div>
+                        <div class="account-pill" onclick="quickFillBill('Broadband', 'Verizon Fios Fiber', 'VRZ-551209', 89.99)">
+                            <div class="pill-avatar"><i class="fa fa-wifi"></i></div>
+                            <div class="pill-info">
+                                <span class="pill-name">Verizon Fios Gigabit</span>
+                                <span class="pill-balance mono-font">Due: $89.99 (Acc: VRZ-551209)</span>
+                            </div>
+                        </div>
+                        <div class="account-pill" onclick="quickFillBill('Water', 'NYC Municipal Water', 'WTR-774012', 64.50)">
+                            <div class="pill-avatar"><i class="fa fa-tint"></i></div>
+                            <div class="pill-info">
+                                <span class="pill-name">Municipal Water Board</span>
+                                <span class="pill-balance mono-font">Due: $64.50 (Acc: WTR-774012)</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Past Settled Bills History -->
+            <section class="ledger-section">
+                <div class="ledger-header">
+                    <div class="ledger-title-group">
+                        <h3>Bill Settlement Receipts History</h3>
+                        <p>Paid utilities and service receipts for selected account</p>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="banking-table">
+                        <thead>
+                            <tr>
+                                <th>Receipt Ref</th>
+                                <th>Payment Date</th>
+                                <th>Category</th>
+                                <th>Biller Name</th>
+                                <th>Consumer ID</th>
+                                <th>Amount</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="billsTableBody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+
+        <!-- ====================================================================
+             FEATURE PANEL 3: Fixed Deposits & Wealth
+             ==================================================================== -->
+        <div class="feature-view-panel" id="viewDeposits">
+            <div class="feature-grid-2">
+
+                <!-- Book Fixed Deposit Form -->
+                <div class="feature-card">
+                    <div class="ledger-title-group">
+                        <h3><i class="fa fa-line-chart" style="color: var(--accent-emerald);"></i> Book High-Yield Fixed Deposit</h3>
+                        <p>Guaranteed compound interest insured by CBS Prime Reserve</p>
+                    </div>
+
+                    <form id="fdForm" class="banking-form">
+                        <div class="form-group">
+                            <label for="fdAmount">Deposit Amount ($ USD)</label>
+                            <input type="number" id="fdAmount" class="form-control mono-font" value="5000" step="100" min="500" required oninput="calculateFdProjection()">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fdTenure">Investment Tenure</label>
+                            <select id="fdTenure" class="form-control" onchange="calculateFdProjection()">
+                                <option value="3">3 Months (6.50% p.a.)</option>
+                                <option value="6">6 Months (6.50% p.a.)</option>
+                                <option value="12" selected>12 Months / 1 Year (7.10% p.a.)</option>
+                                <option value="36">36 Months / 3 Years (7.75% p.a.)</option>
+                                <option value="60">60 Months / 5 Years (8.25% p.a.)</option>
+                            </select>
+                        </div>
+
+                        <!-- Live Projection Result -->
+                        <div class="emi-result-box">
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Estimated Maturity Payout</span>
+                            <span class="mono-font" id="fdProjectedMaturity" style="font-size: 1.8rem; font-weight: 800; color: var(--accent-emerald);">$5,355.00</span>
+                            <span style="font-size: 0.75rem; color: var(--accent-cyan);" id="fdProjectedInterest">+ $355.00 Guaranteed Profit</span>
+                        </div>
+
+                        <button type="submit" class="btn-submit-action">
+                            <i class="fa fa-certificate"></i> Lock &amp; Issue Fixed Deposit Certificate
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Active Fixed Deposits Certificates List -->
+                <div class="feature-card">
+                    <div class="ledger-title-group">
+                        <h3><i class="fa fa-folder-open-o" style="color: var(--accent-amber);"></i> Active Term Certificates</h3>
+                        <p>Holdings currently accruing guaranteed interest</p>
+                    </div>
+
+                    <div id="fdCertificatesContainer" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ====================================================================
+             FEATURE PANEL 4: Loans & Interactive EMI Calculator
+             ==================================================================== -->
+        <div class="feature-view-panel" id="viewLoans">
+            <div class="feature-grid-2">
+
+                <!-- Interactive EMI Calculator & Application -->
+                <div class="feature-card">
+                    <div class="ledger-title-group">
+                        <h3><i class="fa fa-calculator" style="color: var(--accent-cyan);"></i> Interactive Loan EMI Calculator</h3>
+                        <p>Instant approval &amp; immediate balance disbursement</p>
+                    </div>
+
+                    <form id="loanForm" class="banking-form">
+                        <div class="form-group">
+                            <label for="loanType">Credit Facility Type</label>
+                            <select id="loanType" class="form-control" onchange="updateLoanRate()">
+                                <option value="Personal Loan">Personal Unsecured Loan (11.5% p.a.)</option>
+                                <option value="Auto Loan" selected>Automobile Vehicle Loan (8.5% p.a.)</option>
+                                <option value="Home Loan">Mortgage Home Loan (7.5% p.a.)</option>
+                                <option value="Corporate Loan">Commercial Expansion Line (9.5% p.a.)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <div style="display: flex; justify-content: space-between;">
+                                <label for="loanAmount">Loan Amount</label>
+                                <span class="mono-font" id="lblLoanAmount" style="color: var(--accent-cyan); font-weight: 700;">$25,000</span>
+                            </div>
+                            <input type="range" id="loanAmountSlider" class="range-slider" min="1000" max="100000" step="1000" value="25000" oninput="calculateEmi()">
+                        </div>
+
+                        <div class="form-group">
+                            <div style="display: flex; justify-content: space-between;">
+                                <label for="loanTenure">Tenure Duration</label>
+                                <span class="mono-font" id="lblLoanTenure" style="color: var(--accent-cyan); font-weight: 700;">36 Months</span>
+                            </div>
+                            <input type="range" id="loanTenureSlider" class="range-slider" min="6" max="60" step="6" value="36" oninput="calculateEmi()">
+                        </div>
+
+                        <!-- EMI Calculation Breakdown Gauge -->
+                        <div class="emi-result-box">
+                            <span style="font-size: 0.8rem; color: var(--text-muted);">Calculated Monthly EMI</span>
+                            <span class="mono-font" id="calcMonthlyEmi" style="font-size: 2rem; font-weight: 800; color: #fff;">$789.24</span>
+                            <div style="display: flex; gap: 1.5rem; margin-top: 0.5rem; font-size: 0.75rem;">
+                                <span style="color: var(--text-muted);">Total Interest: <strong id="calcTotalInterest" style="color: var(--accent-rose);">$3,412.64</strong></span>
+                                <span style="color: var(--text-muted);">Total Payable: <strong id="calcTotalPayable" style="color: var(--accent-cyan);">$28,412.64</strong></span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit-action" style="background: linear-gradient(135deg, var(--accent-cyan), #0284c7);">
+                            <i class="fa fa-check-circle"></i> Disburse Loan Funds into Balance Instantly
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Active Loan Contracts -->
+                <div class="feature-card">
+                    <div class="ledger-title-group">
+                        <h3><i class="fa fa-file-text-o" style="color: var(--accent-emerald);"></i> Active Disbursed Loans</h3>
+                        <p>Ongoing repayment schedules and remaining balances</p>
+                    </div>
+
+                    <div id="loansContainer" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ====================================================================
+             FEATURE PANEL 5: Beneficiaries & Payees
+             ==================================================================== -->
+        <div class="feature-view-panel" id="viewBeneficiaries">
+            <div class="feature-grid-2">
+
+                <!-- Saved Beneficiaries Directory -->
+                <div class="feature-card">
+                    <div class="ledger-title-group">
+                        <h3><i class="fa fa-users" style="color: var(--accent-primary);"></i> Saved Payee Address Book</h3>
+                        <p>Instant 1-click wire transfers to authorized beneficiaries</p>
+                    </div>
+
+                    <div id="beneficiariesGrid" class="feature-grid-2" style="grid-template-columns: 1fr; gap: 0.85rem;">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+
+                <!-- Add New Beneficiary Form -->
+                <div class="feature-card">
+                    <div class="ledger-title-group">
+                        <h3><i class="fa fa-user-plus" style="color: var(--accent-emerald);"></i> Register New Beneficiary</h3>
+                        <p>Add trusted counterparty for instant zero-fee wire transfers</p>
+                    </div>
+
+                    <form id="addBeneficiaryForm" class="banking-form">
+                        <div class="form-group">
+                            <label for="benName">Beneficiary Full Legal Name</label>
+                            <input type="text" id="benName" class="form-control" placeholder="e.g. Marcus Aurelius" required>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="benAccountNo">Account Number</label>
+                                <input type="number" id="benAccountNo" class="form-control mono-font" placeholder="100100..." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="benBankName">Bank / Institution</label>
+                                <input type="text" id="benBankName" class="form-control" value="CBS Prime Banking" required>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="benRouting">Routing / Swift Code</label>
+                                <input type="text" id="benRouting" class="form-control mono-font" value="021000021" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="benDailyLimit">Daily Transfer Cap ($)</label>
+                                <input type="number" id="benDailyLimit" class="form-control mono-font" value="25000" step="500">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-submit-action">
+                            <i class="fa fa-plus-circle"></i> Save Beneficiary Contact
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ====================================================================
+             FEATURE PANEL 6: Card Security & Controls
+             ==================================================================== -->
+        <div class="feature-view-panel" id="viewCards">
+            <div class="feature-grid-2">
+
+                <!-- Card Security Switchboard -->
+                <div class="feature-card">
+                    <div class="ledger-title-group">
+                        <h3><i class="fa fa-shield" style="color: var(--accent-emerald);"></i> Real-Time Card Controls</h3>
+                        <p>Protect against unauthorized POS and online fraud</p>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 0.85rem;">
+                        
+                        <!-- Emergency Freeze Toggle -->
+                        <div class="switch-label" style="border-left: 4px solid var(--accent-rose);">
+                            <div>
+                                <strong style="color: #fff; font-size: 0.9rem;">❄️ Emergency Card Freeze</strong>
+                                <p style="font-size: 0.72rem; color: var(--text-muted);">Instantly disable all purchases if card is misplaced</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="chkFreezeCard" onchange="toggleCardFreezeApi()">
+                                <span class="slider-round"></span>
+                            </label>
+                        </div>
+
+                        <!-- Online Transactions Toggle -->
+                        <div class="switch-label">
+                            <div>
+                                <strong style="color: #fff; font-size: 0.9rem;">🌐 Online E-Commerce Purchases</strong>
+                                <p style="font-size: 0.72rem; color: var(--text-muted);">Permit web checkouts, Amazon, and app subscriptions</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="chkOnlineTxn" checked onchange="saveCardSettingsApi()">
+                                <span class="slider-round"></span>
+                            </label>
+                        </div>
+
+                        <!-- International Usage Toggle -->
+                        <div class="switch-label">
+                            <div>
+                                <strong style="color: #fff; font-size: 0.9rem;">✈️ International Roaming &amp; FX</strong>
+                                <p style="font-size: 0.72rem; color: var(--text-muted);">Allow overseas point-of-sale and foreign ATM access</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="chkIntlUsage" onchange="saveCardSettingsApi()">
+                                <span class="slider-round"></span>
+                            </label>
+                        </div>
+
+                        <!-- Contactless NFC Wave Toggle -->
+                        <div class="switch-label">
+                            <div>
+                                <strong style="color: #fff; font-size: 0.9rem;">📶 Contactless Tap-To-Pay (NFC)</strong>
+                                <p style="font-size: 0.72rem; color: var(--text-muted);">Enable tap-and-go payments under $100 without PIN</p>
+                            </div>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="chkContactless" checked onchange="saveCardSettingsApi()">
+                                <span class="slider-round"></span>
+                            </label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- ATM Limit & PIN Reset Form -->
+                <div class="feature-card">
+                    <div class="ledger-title-group">
+                        <h3><i class="fa fa-lock" style="color: var(--accent-cyan);"></i> ATM Limits &amp; Security PIN</h3>
+                        <p>Manage withdrawal thresholds and update 4-digit security code</p>
+                    </div>
+
+                    <form id="cardLimitsForm" class="banking-form" onsubmit="event.preventDefault(); saveCardSettingsApi();">
+                        <div class="form-group">
+                            <div style="display: flex; justify-content: space-between;">
+                                <label for="cardAtmLimitSlider">Daily ATM Cash Limit</label>
+                                <span class="mono-font" id="lblAtmLimit" style="color: var(--accent-emerald); font-weight: 700;">$2,500</span>
+                            </div>
+                            <input type="range" id="cardAtmLimitSlider" class="range-slider" min="500" max="10000" step="500" value="2500" oninput="document.getElementById('lblAtmLimit').textContent = formatCurrency(this.value)">
+                        </div>
+
+                        <div class="form-group">
+                            <div style="display: flex; justify-content: space-between;">
+                                <label for="cardPosLimitSlider">Daily Point-of-Sale (POS) Limit</label>
+                                <span class="mono-font" id="lblPosLimit" style="color: var(--accent-cyan); font-weight: 700;">$5,000</span>
+                            </div>
+                            <input type="range" id="cardPosLimitSlider" class="range-slider" min="1000" max="25000" step="1000" value="5000" oninput="document.getElementById('lblPosLimit').textContent = formatCurrency(this.value)">
+                        </div>
+
+                        <button type="submit" class="btn-submit-action">
+                            <i class="fa fa-save"></i> Save Spending Limits
+                        </button>
+                    </form>
+
+                    <div style="border-top: 1px solid var(--border-subtle); padding-top: 1.25rem; margin-top: 0.5rem;">
+                        <div class="ledger-title-group" style="margin-bottom: 0.85rem;">
+                            <h4 style="font-size: 0.95rem; color: #fff;">Change 4-Digit Card PIN</h4>
+                        </div>
+                        <form id="changePinForm" class="banking-form" onsubmit="event.preventDefault(); submitChangePin();">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <input type="password" id="newCardPin" class="form-input mono-font" placeholder="New PIN (4 digits)" maxlength="4" required>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn-header btn-ghost" style="height: 100%; justify-content: center;">
+                                        <i class="fa fa-key"></i> Update PIN
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ====================================================================
+             FEATURE PANEL 7: Spending Insights & Analytics
+             ==================================================================== -->
+        <div class="feature-view-panel" id="viewAnalytics">
+            <div class="feature-grid-2">
+
+                <!-- Monthly Inflow vs Outflow Gauge -->
+                <div class="feature-card">
+                    <div class="ledger-title-group">
+                        <h3><i class="fa fa-balance-scale" style="color: var(--accent-emerald);"></i> Monthly Cash Velocity</h3>
+                        <p>Total funds credited versus total debits and settlements</p>
+                    </div>
+
+                    <div class="kpi-grid" style="grid-template-columns: 1fr 1fr; margin-top: 0.5rem;">
+                        <div class="kpi-card" style="border-top: 3px solid var(--accent-emerald);">
+                            <div>
+                                <div class="kpi-label">Total Inflow</div>
+                                <div class="kpi-value mono-font" id="analyticsInflow" style="color: var(--accent-emerald); font-size: 1.5rem;">$0.00</div>
+                                <div class="kpi-subtext"><i class="fa fa-arrow-down"></i> Deposits &amp; Wires</div>
+                            </div>
+                        </div>
+
+                        <div class="kpi-card" style="border-top: 3px solid var(--accent-rose);">
+                            <div>
+                                <div class="kpi-label">Total Outflow</div>
+                                <div class="kpi-value mono-font" id="analyticsOutflow" style="color: var(--accent-rose); font-size: 1.5rem;">$0.00</div>
+                                <div class="kpi-subtext"><i class="fa fa-arrow-up"></i> Transfers &amp; Bills</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="account-detail-box" style="margin-top: 1rem;">
+                        <div class="detail-row">
+                            <span class="detail-label">Net Liquidity Change</span>
+                            <span class="detail-value mono-font" id="analyticsNetFlow" style="font-weight: 800;">$0.00</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Liquidity Ratio</span>
+                            <span class="detail-value mono-font" style="color: var(--accent-emerald);">100% Fully Backed</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categorical Spending Breakdown Bars -->
+                <div class="feature-card">
+                    <div class="ledger-title-group">
+                        <h3><i class="fa fa-pie-chart" style="color: var(--accent-primary);"></i> Spending Category Distribution</h3>
+                        <p>Automated financial tagging across ledger activity</p>
+                    </div>
+
+                    <div style="margin-top: 1rem;">
+                        <div class="analytics-bar-item">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600;">
+                                <span><i class="fa fa-paper-plane" style="color: #818cf8;"></i> Wire Transfers</span>
+                                <span class="mono-font" id="barPctTransfers">45%</span>
+                            </div>
+                            <div class="analytics-bar-track">
+                                <div class="analytics-bar-fill" id="barFillTransfers" style="width: 45%; background: linear-gradient(90deg, #6366f1, #818cf8);"></div>
+                            </div>
+                        </div>
+
+                        <div class="analytics-bar-item">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600;">
+                                <span><i class="fa fa-bolt" style="color: #fbbf24;"></i> Utilities &amp; Bill Settlements</span>
+                                <span class="mono-font" id="barPctBills">25%</span>
+                            </div>
+                            <div class="analytics-bar-track">
+                                <div class="analytics-bar-fill" id="barFillBills" style="width: 25%; background: linear-gradient(90deg, #f59e0b, #fbbf24);"></div>
+                            </div>
+                        </div>
+
+                        <div class="analytics-bar-item">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600;">
+                                <span><i class="fa fa-line-chart" style="color: #34d399;"></i> Term Deposits &amp; Wealth</span>
+                                <span class="mono-font" id="barPctInvest">20%</span>
+                            </div>
+                            <div class="analytics-bar-track">
+                                <div class="analytics-bar-fill" id="barFillInvest" style="width: 20%; background: linear-gradient(90deg, #10b981, #34d399);"></div>
+                            </div>
+                        </div>
+
+                        <div class="analytics-bar-item">
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8rem; font-weight: 600;">
+                                <span><i class="fa fa-credit-card" style="color: #f87171;"></i> ATM &amp; Cash Outflows</span>
+                                <span class="mono-font" id="barPctCash">10%</span>
+                            </div>
+                            <div class="analytics-bar-track">
+                                <div class="analytics-bar-fill" id="barFillCash" style="width: 10%; background: linear-gradient(90deg, #f43f5e, #f87171);"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ====================================================================
+             FEATURE PANEL 8: Support Desk & AI Banking Assistant
+             ==================================================================== -->
+        <div class="feature-view-panel" id="viewSupport">
+            <div class="feature-grid-2">
+
+                <!-- Submit Ticket Form & List -->
+                <div class="feature-card">
+                    <div class="ledger-title-group">
+                        <h3><i class="fa fa-life-ring" style="color: var(--accent-cyan);"></i> Priority Customer Service</h3>
+                        <p>Raise disputes, investigate unknown debits, or submit requests</p>
+                    </div>
+
+                    <form id="supportTicketForm" class="banking-form" onsubmit="event.preventDefault(); submitSupportTicket();">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="ticketCategory">Issue Category</label>
+                                <select id="ticketCategory" class="form-control">
+                                    <option value="Fraud / Transaction Dispute">Fraud / Transaction Dispute</option>
+                                    <option value="Card Lost or Stolen">Card Lost or Stolen</option>
+                                    <option value="Wire Transfer Delay">Wire Transfer Delay</option>
+                                    <option value="Account Limits & KYC">Account Limits &amp; KYC</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="ticketSubject">Subject</label>
+                                <input type="text" id="ticketSubject" class="form-control" placeholder="Brief summary" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ticketMessage">Detailed Explanation</label>
+                            <textarea id="ticketMessage" class="form-control" rows="3" placeholder="Provide transaction reference or issue details..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit-action">
+                            <i class="fa fa-paper-plane"></i> File Support Ticket
+                        </button>
+                    </form>
+
+                    <!-- Ticket History -->
+                    <div style="margin-top: 1rem;">
+                        <h4 style="font-size: 0.9rem; color: #fff; margin-bottom: 0.5rem;">Submitted Tickets</h4>
+                        <div id="ticketsContainer">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive AI Banking Chatbot -->
+                <div class="feature-card">
+                    <div class="ledger-title-group">
+                        <h3><i class="fa fa-android" style="color: var(--accent-emerald);"></i> 24/7 Virtual Banking Assistant</h3>
+                        <p>Ask anything about transfers, routing codes, fees, or account rules</p>
+                    </div>
+
+                    <div class="chat-window-box">
+                        <div class="chat-messages-container" id="chatMessages">
+                            <div class="chat-bubble chat-bubble-bot">
+                                Hello! I am your CBS Prime Virtual Assistant. How can I assist you with your accounts, transfers, or card security today?
+                            </div>
+                        </div>
+                        <form id="chatForm" class="chat-input-bar" onsubmit="event.preventDefault(); handleChatSubmit();">
+                            <input type="text" id="chatInput" class="form-input" style="border: none; background: transparent; padding: 0.5rem;" placeholder="Ask about fees, wire cutoff, routing #..." required autocomplete="off">
+                            <button type="submit" class="btn-header btn-primary" style="padding: 0.4rem 0.85rem;">
+                                <i class="fa fa-send"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ====================================================================
+         Receipt Modal
+         ==================================================================== -->
+    <div class="modal-overlay" id="receiptModal">
+        <div class="modal-box">
+            <button class="modal-close-btn" onclick="closeReceiptModal()">&times;</button>
+            <div style="text-align: center; margin-bottom: 1.5rem;">
+                <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(16, 185, 129, 0.2); color: var(--accent-emerald); display: inline-flex; align-items: center; justify-content: center; font-size: 1.75rem; margin-bottom: 0.75rem;">
+                    <i class="fa fa-check"></i>
+                </div>
+                <h3 style="font-size: 1.25rem; font-weight: 800; color: #fff;">Transfer Completed</h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted);">Funds successfully transferred via CBS Prime Core Ledger</p>
+            </div>
+
+            <div class="account-detail-box" style="margin-bottom: 1.5rem;">
+                <div class="detail-row">
+                    <span class="detail-label">Reference ID</span>
+                    <span class="detail-value mono-font" id="receiptRefId">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Date &amp; Time</span>
+                    <span class="detail-value" id="receiptTimestamp">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Debited Account</span>
+                    <span class="detail-value mono-font" id="receiptFromAcc">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Beneficiary Account</span>
+                    <span class="detail-value mono-font" id="receiptToAcc">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Transferred Amount</span>
+                    <span class="detail-value mono-font" id="receiptAmount" style="color: var(--accent-emerald); font-size: 1.1rem;">-</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Remaining Balance</span>
+                    <span class="detail-value mono-font" id="receiptBalance">-</span>
+                </div>
+            </div>
+
+            <button class="btn-submit-action" style="width: 100%;" onclick="closeReceiptModal()">
+                Done &amp; Close Receipt
+            </button>
+        </div>
     </div>
-    <!--header section end -->
-    <!--about section start -->
-    <div class="services_section layout_padding">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8">
-            <h1 class="services_taital">WELCOME TO CUSTOMER BANKING SERVICES</h1>
-            <p class="services_text"> The world class bankig services that we provide are current and savings accounts, loan and mortgage services, wealth management, providing Credit and Debit Cards, Overdraft services. </p>
-            <div class="moremore_bt"><a href="#">Read More </a></div>
-          </div>
-          <div class="col-md-4">
-            <div><img src="images/img-1.png" class="image_1"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--about section end -->
-    <!--services section start -->
-    <div class="what_we_do_section layout_padding">
-      <div class="container">
-        <h1 class="what_taital">WHAT WE DO</h1>
-        <p class="what_text">World's best in class banking services ad solutionsn </p>
-        <div class="what_we_do_section_2">
-          <div class="row">
-          <div class="col-lg-3 col-sm-6">
-            <div class="box_main">
-              <div class="icon_1"><img src="images/icon-1.png"></div>
-              <h3 class="accounting_text">Accounting</h3>
-              <p class="lorem_text"></p>
-              <div class="moremore_bt_1"><a href="#">Read More </a></div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="box_main active">
-              <div class="icon_1"><img src="images/icon-2.png"></div>
-              <h3 class="accounting_text">Advisor</h3>
-              <p class="lorem_text"></p>
-              <div class="moremore_bt_1"><a href="#">Read More </a></div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="box_main">
-              <div class="icon_1"><img src="images/icon-3.png"></div>
-              <h3 class="accounting_text">Investment</h3>
-              <p class="lorem_text"></p>
-              <div class="moremore_bt_1"><a href="#">Read More </a></div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <div class="box_main">
-              <div class="icon_1"><img src="images/icon-4.png"></div>
-              <h3 class="accounting_text">Financial</h3>
-              <p class="lorem_text"></p>
-              <div class="moremore_bt_1"><a href="#">Read More </a></div>
-            </div>
-          </div>
-        </div>
-        </div>
-      </div>
-    </div>
-    <!--services section end -->
-    <!--project section start -->
-   
-    <!--project section end -->
-    <!--team section start -->
-    <div class="team_section layout_padding">
-      <div class="container">
-        <h1 class="what_taital">Our Team and experts</h1>
-        <p class="what_text_1">It is a long established fact that a reader will be distracted by the readable content of a </p>
-        <div class="team_section_2 layout_padding">
-          <div class="row">
-            <div class="col-sm-3">
-              <img src="images/img-7.png" class="image_7">
-              <p class="readable_text">Readable</p>
-              <p class="readable_text_1">Follow Us</p>
-              <div class="social_icon">
-                <ul>
-                  <li><a href="#"><img src="images/fb-icon.png"></a></li>
-                  <li><a href="#"><img src="images/twitter-icon.png"></a></li>
-                  <li><a href="#"><img src="images/linkedin-icon.png"></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <img src="images/img-8.png" class="image_7">
-              <p class="readable_text">Content</p>
-              <p class="readable_text_1">Follow Us</p>
-              <div class="social_icon">
-                <ul>
-                  <li><a href="#"><img src="images/fb-icon.png"></a></li>
-                  <li><a href="#"><img src="images/twitter-icon.png"></a></li>
-                  <li><a href="#"><img src="images/linkedin-icon.png"></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <img src="images/img-9.png" class="image_7">
-              <p class="readable_text">Readable</p>
-              <p class="readable_text_1">Follow Us</p>
-              <div class="social_icon">
-                <ul>
-                  <li><a href="#"><img src="images/fb-icon.png"></a></li>
-                  <li><a href="#"><img src="images/twitter-icon.png"></a></li>
-                  <li><a href="#"><img src="images/linkedin-icon.png"></a></li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-sm-3">
-              <img src="images/img-10.png" class="image_7">
-              <p class="readable_text">Content</p>
-              <p class="readable_text_1">Follow Us</p>
-              <div class="social_icon">
-                <ul>
-                  <li><a href="#"><img src="images/fb-icon.png"></a></li>
-                  <li><a href="#"><img src="images/twitter-icon.png"></a></li>
-                  <li><a href="#"><img src="images/linkedin-icon.png"></a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--team section end -->
-    <!--client section start -->
-    <div class="client_section layout_padding">
-      <div class="container">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-          <ol class="carousel-indicators">
-            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-          </ol>
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <h1 class="what_taital">what is syas our clients</h1>
-              <div class="client_section_2 layout_padding">
-                <ul>
-                  <li><img src="images/round-1.png" class="round_1"></li>
-                  <li><img src="images/img-11.png" class="image_11"></li>
-                  <li><img src="images/round-2.png" class="round_2"></li>
-                </ul>
-                <p class="dummy_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem</p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <h1 class="what_taital">what is syas our clients</h1>
-              <div class="client_section_2 layout_padding">
-                <ul>
-                  <li><img src="images/round-1.png" class="round_1"></li>
-                  <li><img src="images/img-11.png" class="image_11"></li>
-                  <li><img src="images/round-2.png" class="round_2"></li>
-                </ul>
-                <p class="dummy_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem</p>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <h1 class="what_taital">what is syas our clients</h1>
-              <div class="client_section_2 layout_padding">
-                <ul>
-                  <li><img src="images/round-1.png" class="round_1"></li>
-                  <li><img src="images/img-11.png" class="image_11"></li>
-                  <li><img src="images/round-2.png" class="round_2"></li>
-                </ul>
-                <p class="dummy_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!--client section end -->
-    <!--footer section start -->
-    <div class="footer_section layout_padding">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-sm-6">
-            <h4 class="about_text">About Financial</h4>
-            <div class="location_text"><img src="images/map-icon.png"><span class="padding_left_15">Locations</span></div>
-            <div class="location_text"><img src="images/call-icon.png"><span class="padding_left_15">+01 9876543210</span></div>
-            <div class="location_text"><img src="images/mail-icon.png"><span class="padding_left_15">demo@gmail.com</span></div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <h4 class="about_text">About Financial</h4>
-            <p class="dolor_text">ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <h4 class="about_text">Instagram</h4>
-            <div class="footer_images">
-              <div class="footer_images_left">
-                <div class="image_12"><img src="images/img-12.png"></div>
-                <div class="image_12"><img src="images/img-12.png"></div>
-                <div class="image_12"><img src="images/img-12.png"></div>
-              </div>
-              <div class="footer_images_right">
-                <div class="image_12"><img src="images/img-12.png"></div>
-                <div class="image_12"><img src="images/img-12.png"></div>
-                <div class="image_12"><img src="images/img-12.png"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-            <h4 class="about_text">Newsletter</h4>
-            <input type="text" class="mail_text" placeholder="Enter your email" name="Enter your email">
-            <div class="subscribe_bt"><a href="#">Subscribe</a></div>
-            <div class="footer_social_icon">
-              <ul>
-                <li><a href="#"><img src="images/fb-icon1.png"></a></li>
-                 <li><a href="#"><img src="images/twitter-icon1.png"></a></li>
-                <li><a href="#"><img src="images/linkedin-icon1.png"></a></li>
-                <li><a href="#"><img src="images/youtub-icon1.png"></a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <!-- copyright section start -->
-        <div class="copyright_section">
-          <div class="copyright_text">Copyright 2019 All Right Reserved By <a href="https://html.design">Free html  Templates</a></div>
-        </div>
-        <!-- copyright section end -->
-      </div>
-    </div>
-    <!--footer section end -->
-    <!-- Javascript files-->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="js/jquery-3.0.0.min.js"></script>
-    <script src="js/plugin.js"></script>
-    <!-- sidebar -->
-    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="js/custom.js"></script>
-    <!-- javascript --> 
-    <script src="js/owl.carousel.js"></script>
-    <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script> 
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Application Script -->
+    <script src="js/enterprise-portal.js"></script>
 </body>
 </html>
